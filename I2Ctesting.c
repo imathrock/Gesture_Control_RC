@@ -55,9 +55,12 @@ void main(void){
         MPU_CHECK_PASS();
     }else{MPU_CHECK_FAIL();}
     while(1){
-        if(get_data()>0){P6OUT = 0b00010000;}
-        if(get_data()>10){P6OUT = 0b00000001;}
+        int16_t data = get_data();  // Get the signed data from MPU6050
+        if (data > 10) {P6OUT = 0b00010000;}  // Positive value
+        else if (data < -10) {P6OUT = 0b00000001;}  // Negative value
+        else {P6OUT = 0b00010001;}  // Zero value
     }
+
 }
 
 int16_t get_data(void){
@@ -74,10 +77,10 @@ void MPU_CHECK_PASS(void){
     while (k--) {
         P1OUT ^= BIT0; // Toggle P1.0
         P4OUT ^= BIT7; // Toggle P4.7
-        __delay_cycles(100000);
+        __delay_cycles(50000);
         P1OUT ^= BIT0; // Toggle P1.0
         P4OUT ^= BIT7; // Toggle P4.7
-        __delay_cycles(100000);
+        __delay_cycles(50000);
     }
     P1OUT &= ~BIT0;
     P4OUT &= ~BIT7;
