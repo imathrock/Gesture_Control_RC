@@ -1,6 +1,6 @@
 #include <msp430.h>
-#include "nrf_userconfig.h"
-#include "msprf24.h"
+#include "Includes/nrf_userconfig.h"
+#include "Includes/msprf24.h"
 #include <stdint.h>
 
 
